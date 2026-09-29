@@ -572,8 +572,15 @@
             </div>
         </div>
 
-        <div class="p-3 bg-white/5 border-t border-white/10 flex gap-2">
+        <div class="p-3 bg-white/5 border-t border-white/10 flex gap-2 items-center">
             <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 glass-input rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+            
+            <!-- Voice Microphone Input Button -->
+            <button id="mic-btn" type="button" class="glass-card px-3 py-2 rounded-xl text-slate-300 hover:text-white text-xs flex items-center gap-1 border border-white/10 transition-colors" title="Speak to AI">
+                <i class="fa-solid fa-microphone"></i>
+                <span id="mic-label" class="hidden sm:inline text-[10px]">Speak</span>
+            </button>
+            
             <button id="chat-send" class="glow-button px-4 py-2 rounded-xl text-black font-extrabold text-xs">
                 <i class="fa-solid fa-paper-plane"></i>
             </button>
@@ -728,7 +735,7 @@
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         try {
-            const response = await fetch('/api/chat', {
+            const response = await fetch('/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userInputValue })
@@ -797,3 +804,5 @@
         micBtn.style.display = 'none';
     }
 </script>
+</body>
+</html>
