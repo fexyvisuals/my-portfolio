@@ -3,446 +3,892 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FEXY VISUALS | Visual Arts & Media Production</title>
+    <title>FEXY VISUALS | Premium Motion Graphics & Visual Design Studio</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#0B0F17',
-                            card: '#161F30',
-                            accent: '#6366F1',
-                            glow: '#818CF8',
-                            muted: '#94A3B8'
+                            base: '#050508',
+                            glass: 'rgba(18, 18, 28, 0.65)',
+                            'glass-card': 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            purple: '#7f00ff',
+                            pink: '#e100ff'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
             }
         }
     </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050508;
+        }
+
+        /* Custom Glassmorphism Styles */
         .glass-panel {
-            background: rgba(22, 31, 48, 0.7);
+            background: rgba(18, 18, 28, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .glow-effect {
-            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.4);
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(79, 172, 254, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px -10px rgba(79, 172, 254, 0.2);
         }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+        }
+
         .text-gradient {
-    background: linear-gradient(135deg, #FFFFFF 0%, #818CF8 100%);
-    -webkit-background-clip: text;
-    background-clip: text; /* Standard property for future compatibility */
-    -webkit-text-fill-color: transparent;
-}
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 30%, #e100ff 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-button {
+            background: linear-gradient(135deg, #00f2fe 0%, #7f00ff 100%);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 35px rgba(225, 0, 255, 0.5);
+            transform: scale(1.02);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00f2fe 0%, #7f00ff 100%);
+            color: #000 !important;
+            font-weight: 800;
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 242, 254, 0.4);
+        }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-accent selection:text-white">
+<body class="text-slate-100 antialiased min-h-screen relative overflow-x-hidden">
 
-    <!-- Ambient Background Glows -->
-    <div class="fixed top-0 left-1/4 w-96 h-96 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- Ambient Glowing Background Blobs -->
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-brand-cyan/10 rounded-full blur-[140px] pointer-events-none animate-pulse-slow"></div>
+    <div class="fixed bottom-10 right-10 w-[600px] h-[600px] bg-brand-pink/10 rounded-full blur-[160px] pointer-events-none animate-pulse-slow"></div>
+    <div class="fixed top-1/2 right-1/4 w-[400px] h-[400px] bg-brand-purple/15 rounded-full blur-[150px] pointer-events-none"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-40 glass-panel border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="text-2xl font-bold tracking-wider text-gradient">FEXY VISUALS</a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-                <a href="#services" class="hover:text-brand-glow transition">Services</a>
-                <a href="#portfolio" class="hover:text-brand-glow transition">Portfolio</a>
-                <a href="#video-showcase" class="hover:text-brand-glow transition">Video Editing</a>
-                <a href="#contact" class="hover:text-brand-glow transition">Contact</a>
-            </div>
-            <a href="#contact" class="bg-brand-accent hover:bg-brand-glow text-white px-5 py-2.5 rounded-full text-sm font-medium transition glow-effect">
-                Start Project
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-40 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-3 flex items-center justify-between">
+            
+            <!-- Header Logo with Small Circular DP -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="relative w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 via-purple-500 to-pink-500 p-[1.5px] shadow-md">
+                    <img src="{{ url_for('static', filename='images/profile.jpg')}}" 
+                         alt="Chukwuemeka Felix" 
+                         class="w-full h-full object-cover rounded-full border border-slate-950">
+                </div>
+                <span class="text-xl font-extrabold tracking-widest text-gradient">FEXY VISUALS</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase tracking-widest text-slate-300">
+                <a href="#about" class="hover:text-brand-cyan transition-colors">About</a>
+                <a href="#services" class="hover:text-brand-cyan transition-colors">Services</a>
+                <a href="#projects" class="hover:text-brand-cyan transition-colors">Showcase</a>
+                <a href="#contact" class="hover:text-brand-cyan transition-colors">Contact</a>
+            </nav>
+
+            <a href="https://wa.me/2347085415834?text=Hi%20FEXY%20VISUALS,%20I'd%20like%20to%20discuss%20a%20project!" target="_blank" 
+               class="glow-button px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-black flex items-center gap-2">
+                <i class="fa-brands fa-whatsapp text-sm"></i> DM Now
             </a>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="pt-36 pb-20 px-6 max-w-7xl mx-auto text-center">
-        <span class="inline-block px-4 py-1.5 rounded-full glass-panel text-xs font-semibold text-brand-glow mb-6 border border-brand-accent/30">
-            Multimedia & Graphic Design Studio
-        </span>
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-gradient">
-            Crafting Visionary Visuals <br class="hidden md:inline"> That Elevate Brands.
-        </h1>
-        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            High-impact graphic design, photo retouching, video editing, and live production setup tailored for modern brand identity.
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#portfolio" class="bg-brand-accent hover:bg-brand-glow text-white px-8 py-3.5 rounded-xl font-semibold transition glow-effect flex items-center justify-center gap-2">
-                View Work <i class="fa-solid font-xs fa-arrow-right"></i>
-            </a>
-            <a href="https://wa.me/" target="_blank" rel="noopener" class="glass-panel hover:bg-white/10 text-white px-8 py-3.5 rounded-xl font-semibold transition flex items-center justify-center gap-2">
-                <i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp Chat
-            </a>
+    <section id="about" class="pt-36 pb-20 max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7">
+                
+                <!-- Live Status Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-cyan-500/30 text-brand-cyan text-xs font-semibold uppercase tracking-wider mb-6">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    Available for Motion & Visual Projects
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-black text-white leading-tight mb-6">
+                    Let's Make Your Brand <br>
+                    <span class="text-gradient">MOVE & STAND OUT</span>
+                </h1>
+
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl">
+                    Welcome to <b>FEXY VISUALS</b> by Chukwuemeka Felix. We transform concepts into high-impact <b>Motion Graphics</b>, <b>AI Storytelling Videos</b>, and stunning <b>Visual Design</b> tailored for brands, events, and commerce.
+                </p>
+
+                <!-- Key Rate Badges -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 max-w-lg">
+                    <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-cyan">
+                        <span class="text-xs uppercase text-slate-400 font-semibold block mb-1">Standard Flyer Design</span>
+                        <span class="text-2xl font-black text-white">cheap rate  <span class="text-xs font-normal text-slate-400">/ design</span></span>
+                        <span class="text-[10px] text-brand-cyan block mt-1"><i class="fa-solid fa-bolt mr-1"></i> 24 – 48 Hours Turnaround</span>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-pink">
+                        <span class="text-xs uppercase text-slate-400 font-semibold block mb-1">Motion & Video Ads</span>
+                        <span class="text-2xl font-black text-white">Custom <span class="text-xs font-normal text-slate-400">quotes</span></span>
+                        <span class="text-[10px] text-brand-pink block mt-1"><i class="fa-solid fa-clock mr-1"></i> 2 – 5 Days Delivery</span>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://wa.me/2347085415834?text=Hi%20FEXY%20VISUALS!%20I'm%20ready%20to%20order%20a%20project." target="_blank" 
+                       class="glow-button px-8 py-4 rounded-xl font-extrabold text-black uppercase tracking-wider text-xs flex items-center gap-2">
+                        Start A Project <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#projects" class="glass-panel hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-slate-200 uppercase tracking-wider text-xs border border-white/10 transition-all">
+                        View Showcase
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile & Media Spotlight Card -->
+            <div class="lg:col-span-5 animate-float">
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden text-center border border-white/10 shadow-2xl">
+                    
+                    <!-- Spotlight Card Small Circular DP -->
+                    <div class="relative w-16 h-16 mx-auto mb-4">
+                        <div class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400 via-purple-500 to-pink-500 p-0.5 shadow-lg">
+                            <img src="{{ url_for('static', filename='images/profile.jpg') }}" 
+                                 alt="Chukwuemeka Felix" 
+                                 class="w-full h-full object-cover rounded-full border border-slate-950">
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-1">Chukwuemeka Felix</h3>
+                    <p class="text-xs uppercase tracking-widest text-brand-cyan font-semibold mb-6">Creative Director & Lead Visuals</p>
+
+                    <div class="space-y-3 mb-6">
+                        <a href="https://wa.me/2347085415834" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between text-xs text-slate-200 hover:text-white">
+                            <span class="flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> +234 708 541 5834</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                        </a>
+                        <a href="https://www.instagram.com/chukwu001emeka?stkn=MTdnazRwd2h0bmR2ZA==" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between text-xs text-slate-200 hover:text-white">
+                            <span class="flex items-center gap-2"><i class="fa-brands fa-instagram text-pink-400 text-base"></i> @chukwu001emeka</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                        </a>
+                        <a href="https://www.facebook.com/share/1EJVfVGoxu/" target="_blank" class="glass-card p-3 rounded-xl flex items-center justify-between text-xs text-slate-200 hover:text-white">
+                            <span class="flex items-center gap-2"><i class="fa-brands fa-facebook text-blue-400 text-base"></i> Fexy Visuals</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                        </a>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400"><i class="fa-solid fa-envelope text-purple-400 mr-1"></i> chukwuemekafelix403@gmail.com</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12 text-gradient">Core Creative Capabilities</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-panel p-8 rounded-2xl border border-white/5 hover:border-brand-accent/50 transition">
-                <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center text-brand-glow text-xl mb-6">
-                    <i class="fa-solid fa-pen-nib"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Graphic & Brand Identity</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Flyers, event promotional graphics, tech packs, garment layouts, and complete vector visual systems.</p>
+    <section id="services" class="py-24 relative z-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Our Creative Arsenal</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Services & Capabilities</h2>
             </div>
-            <div class="glass-panel p-8 rounded-2xl border border-white/5 hover:border-brand-accent/50 transition">
-                <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center text-brand-glow text-xl mb-6">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-3xl relative group">
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-brand-cyan flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Graphic & Visual Design</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+                        Church & Event Flyers, Commercial Layouts, Celebrations, Tech Communities & High-Converting Social Banners.
+                    </p>
+                    <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs">
+                        <span class="text-slate-400">Starting Price</span>
+                        <span class="font-extrabold text-brand-cyan"> Flyer</span>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Photo Retouching</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">High-end portrait retouching, frequency separation, color grading, and editorial composition.</p>
-            </div>
-            <div class="glass-panel p-8 rounded-2xl border border-white/5 hover:border-brand-accent/50 transition">
-                <div class="w-12 h-12 bg-brand-accent/20 rounded-xl flex items-center justify-center text-brand-glow text-xl mb-6">
-                    <i class="fa-solid fa-video"></i>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-3xl relative group">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-brand-purple flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clapperboard"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Motion Graphics & Video</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+                        Dynamic Motion Ads, Event Promos, Brand Animations, Keyframe Motion Graphics & Audio Spectrum Visuals.
+                    </p>
+                    <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs">
+                        <span class="text-slate-400">Turnaround</span>
+                        <span class="font-extrabold text-brand-purple">2 – 5 Days</span>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Video Post-Production</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Short-form video editing, motion captions, video stabilization, and live multi-camera broadcast routing setups.</p>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-3xl relative group">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-500/30 text-brand-pink flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI Video & Photo Retouching</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6">
+                        AI Image-to-Video Animation, Faceless Video Storytelling, Skin Retouching & Camera Raw Color Grading.
+                    </p>
+                    <div class="pt-4 border-t border-white/5 flex justify-between items-center text-xs">
+                        <span class="text-slate-400">Package</span>
+                        <span class="font-extrabold text-brand-pink">Custom Quote</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Gallery -->
-    <section id="portfolio" class="py-20 px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-            <h2 class="text-3xl font-bold text-gradient">Design Portfolio</h2>
-            <div class="flex flex-wrap gap-2" id="filter-buttons">
-                <button data-filter="all" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold glass-panel bg-brand-accent text-white transition">All</button>
-                <button data-filter="flyers" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold glass-panel text-slate-300 hover:text-white transition">Flyers & Events</button>
-                <button data-filter="branding" class="filter-btn px-4 py-2 rounded-lg text-xs font-semibold glass-panel text-slate-300 hover:text-white transition">Brand Identity</button>
-            </div>
+    <!-- Video Motion Showcase (UPDATED WITH FLASK URL_FOR PATHS & AUTOPLAY) -->
+    <section class="py-12 px-6 max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-white mb-8 text-center">Video Motion Showcase</h2>
+
+      <!-- Clean 2x2 Video Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Video 1 -->
+        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
+          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb1.jpg') }}">
+            <source src="{{ url_for('static', filename='videos/video1.mp4') }}" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
+            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
+              Click to Unmute / Pause
+            </span>
+            <p class="text-gray-300 text-xs">Commercial Edit</p>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
-            <div class="portfolio-item group relative rounded-2xl overflow-hidden glass-panel border border-white/5 cursor-pointer" data-category="flyers" data-index="0">
-                <img src="/static/images/portfolio1.jpg" alt="Flyer Design" class="w-full h-72 object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/600x600/161F30/818CF8?text=Flyer+Design'">
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-6 flex flex-col justify-end">
-                    <span class="text-xs text-brand-glow font-semibold">Flyers & Events</span>
-                    <h4 class="text-lg font-bold text-white">Event Poster Concept</h4>
-                </div>
+        <!-- Video 2 -->
+        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
+          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb2.jpg') }}">
+            <source src="{{ url_for('static', filename='videos/video2.mp4') }}" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
+            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
+              Click to Unmute / Pause
+            </span>
+            <p class="text-gray-300 text-xs">Event Highlight</p>
+          </div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
+          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb3.jpg') }}">
+            <source src="{{ url_for('static', filename='videos/video3.mp4') }}" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
+            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
+              Click to Unmute / Pause
+            </span>
+            <p class="text-gray-300 text-xs">Brand Motion Graphic</p>
+          </div>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
+          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb4.jpg') }}">
+            <source src="{{ url_for('static', filename='videos/video4.mp4') }}" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
+            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
+              Click to Unmute / Pause
+            </span>
+            <p class="text-gray-300 text-xs">Cinematic Color Grade</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+   <!-- Project Showcase Gallery Section -->
+    <section id="projects" class="py-24 relative z-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-pink">Portfolio Showcase</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Selected Works & Projects</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-3">Click any section to view its 4 flyers or filter through all 16 designs.</p>
             </div>
-            <div class="portfolio-item group relative rounded-2xl overflow-hidden glass-panel border border-white/5 cursor-pointer" data-category="branding" data-index="1">
-                <img src="/static/images/portfolio2.jpg" alt="Brand Identity" class="w-full h-72 object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://via.placeholder.com/600x600/161F30/818CF8?text=Brand+Identity'">
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition p-6 flex flex-col justify-end">
-                    <span class="text-xs text-brand-glow font-semibold">Brand Identity</span>
-                    <h4 class="text-lg font-bold text-white">Visual Identity System</h4>
+
+            <!-- Section Category Selector Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-12">
+                <button onclick="filterGallery(event, 'all')" class="filter-btn active glass-card px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider text-slate-300 border border-white/10 transition-all">All Works (16)</button>
+                <button onclick="filterGallery(event, 'church')" class="filter-btn glass-card px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider text-slate-300 border border-white/10 transition-all">Church & Events (4)</button>
+                <button onclick="filterGallery(event, 'tech')" class="filter-btn glass-card px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider text-slate-300 border border-white/10 transition-all">Tech & Community (4)</button>
+                <button onclick="filterGallery(event, 'celebrations')" class="filter-btn glass-card px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider text-slate-300 border border-white/10 transition-all">Celebrations (4)</button>
+                <button onclick="filterGallery(event, 'social')" class="filter-btn glass-card px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider text-slate-300 border border-white/10 transition-all">Social Banners (4)</button>
+            </div>
+
+            <!-- 4x4 Showcase Grid (16 Items Total) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-grid">
+                
+                <!-- SECTION 1: CHURCH & EVENTS (Flyers 1 - 4) -->
+                <div class="gallery-item church glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(0)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer1.jpg') }}" alt="Church Flyer 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-cyan text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-church"></i> Church & Events</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Church Flyer 1</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="gallery-item church glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(1)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer2.jpg') }}" alt="Church Flyer 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-cyan text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-church"></i> Church & Events</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Church Flyer 2</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item church glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(2)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer3.jpg') }}" alt="Church Flyer 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-cyan text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-church"></i> Church & Events</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Church Flyer 3</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item church glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(3)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer4.jpg') }}" alt="Church Flyer 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-cyan text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-church"></i> Church & Events</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Church Flyer 4</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: TECH & COMMUNITY (Flyers 5 - 8) -->
+                <div class="gallery-item tech glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(4)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer5.jpg') }}" alt="Tech Flyer 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-purple text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-laptop-code"></i> Tech & Community</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Tech Flyer 1</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item tech glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(5)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer6.jpg') }}" alt="Tech Flyer 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-purple text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-laptop-code"></i> Tech & Community</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Tech Flyer 2</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item tech glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(6)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer7.jpg') }}" alt="Tech Flyer 7" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-purple text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-laptop-code"></i> Tech & Community</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Tech Flyer 3</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item tech glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(7)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer8.jpg') }}" alt="Tech Flyer 8" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-purple text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-laptop-code"></i> Tech & Community</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Tech Flyer 4</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: CELEBRATIONS (Flyers 9 - 12) -->
+                <div class="gallery-item celebrations glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(8)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer9.jpg') }}" alt="Celebration Flyer 9" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-pink text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-cake-candles"></i> Celebrations</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Celebration Flyer 1</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item celebrations glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(9)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer10.jpg') }}" alt="Celebration Flyer 10" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-pink text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-cake-candles"></i> Celebrations</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Celebration Flyer 2</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item celebrations glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(10)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer11.jpg') }}" alt="Celebration Flyer 11" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-pink text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-cake-candles"></i> Celebrations</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Celebration Flyer 3</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item celebrations glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(11)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer12.jpg') }}" alt="Celebration Flyer 12" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-brand-pink text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-cake-candles"></i> Celebrations</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Celebration Flyer 4</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 4: SOCIAL BANNERS (Flyers 13 - 16) -->
+                <div class="gallery-item social glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(12)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer13.jpg') }}" alt="Social Flyer 13" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-hashtag"></i> Social Banners</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Social Banner 1</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item social glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(13)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer14.jpg') }}" alt="Social Flyer 14" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-hashtag"></i> Social Banners</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Social Banner 2</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item social glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(14)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer15.jpg') }}" alt="Social Flyer 15" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-hashtag"></i> Social Banners</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Social Banner 3</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item social glass-card rounded-2xl overflow-hidden cursor-pointer group" onclick="openLightbox(15)">
+                    <div class="aspect-[4/5] bg-slate-900 relative overflow-hidden">
+                        <img src="{{ url_for('static', filename='images/flyer16.jpg') }}" alt="Social Flyer 16" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center">
+                            <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-hashtag"></i> Social Banners</span>
+                            <h4 class="text-white font-extrabold text-sm mb-2">Social Banner 4</h4>
+                            <span class="glow-button px-4 py-2 rounded-xl text-[10px] text-black font-extrabold uppercase"><i class="fa-solid fa-expand mr-1"></i> Expand View</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Video Editing Showcase -->
-    <section id="showcase" class="py-12 px-6 max-w-6xl mx-auto">
-  <h2 class="text-3xl font-bold text-white mb-8 text-center">Video Motion Showcase</h2>
+    <!-- Booking Contact Form -->
+    <section id="contact" class="py-24 relative z-10 border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-cyan">Direct Booking</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">Start Your Project</h2>
+            </div>
 
-  <!-- Clean 2x2 Video Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-    <!-- Video 1 -->
-    <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-             autoplay muted loop playsinline preload="auto" 
-             poster="{{ url_for('static', filename='images/thumb1.jpg') }}">
-        <source src="{{ url_for('static', filename='videos/video1.mp4') }}" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-        <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-          Click to Unmute / Pause
-        </span>
-        <p class="text-gray-300 text-xs">Commercial Edit</p>
-      </div>
-    </div>
-
-    <!-- Video 2 -->
-    <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-             autoplay muted loop playsinline preload="auto" 
-             poster="{{ url_for('static', filename='images/thumb2.jpg') }}">
-        <source src="{{ url_for('static', filename='videos/video2.mp4') }}" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-        <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-          Click to Unmute / Pause
-        </span>
-        <p class="text-gray-300 text-xs">Event Highlight</p>
-      </div>
-    </div>
-
-    <!-- Video 3 -->
-    <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-             autoplay muted loop playsinline preload="auto" 
-             poster="{{ url_for('static', filename='images/thumb3.jpg') }}">
-        <source src="{{ url_for('static', filename='videos/video3.mp4') }}" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-        <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-          Click to Unmute / Pause
-        </span>
-        <p class="text-gray-300 text-xs">Brand Motion Graphic</p>
-      </div>
-    </div>
-
-    <!-- Video 4 -->
-    <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-             autoplay muted loop playsinline preload="auto" 
-             poster="{{ url_for('static', filename='images/thumb4.jpg') }}">
-        <source src="{{ url_for('static', filename='videos/video4.mp4') }}" type="video/mp4">
-      </video>
-      <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-        <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-          Click to Unmute / Pause
-        </span>
-        <p class="text-gray-300 text-xs">Cinematic Color Grade</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-    <!-- Contact & Booking -->
-    <section id="contact" class="py-20 px-6 max-w-4xl mx-auto">
-        <div class="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 relative">
-            <h2 class="text-3xl font-bold text-center mb-4 text-gradient">Let's Build Something Great</h2>
-            <p class="text-slate-400 text-center text-sm mb-8">Fill in your project details below to request a quote.</p>
-            
-            <form id="contact-form" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="glass-panel p-8 sm:p-10 rounded-3xl space-y-6 border border-white/10 shadow-2xl">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label for="client-name" class="block text-xs font-semibold text-slate-300 mb-2">Your Name</label>
-                        <input type="text" id="client-name" name="name" required class="w-full glass-panel px-4 py-3 rounded-xl border border-white/10 text-white focus:outline-none focus:border-brand-accent transition text-sm">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Name</label>
+                        <input type="text" name="name" required placeholder="Chukwuemeka" class="w-full glass-input rounded-xl px-4 py-3.5 text-white focus:outline-none text-sm">
                     </div>
                     <div>
-                        <label for="client-email" class="block text-xs font-semibold text-slate-300 mb-2">Email Address</label>
-                        <input type="email" id="client-email" name="email" required class="w-full glass-panel px-4 py-3 rounded-xl border border-white/10 text-white focus:outline-none focus:border-brand-accent transition text-sm">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Email</label>
+                        <input type="email" name="email" required placeholder="client@example.com" class="w-full glass-input rounded-xl px-4 py-3.5 text-white focus:outline-none text-sm">
                     </div>
                 </div>
+
                 <div>
-                    <label for="project-type" class="block text-xs font-semibold text-slate-300 mb-2">Service Needed</label>
-                    <select id="project-type" name="service" class="w-full glass-panel px-4 py-3 rounded-xl border border-white/10 text-slate-300 focus:outline-none focus:border-brand-accent transition text-sm">
-                        <option value="graphic-design" class="bg-brand-dark text-white">Graphic Design / Flyers</option>
-                        <option value="photo-retouching" class="bg-brand-dark text-white">Photo Retouching</option>
-                        <option value="video-editing" class="bg-brand-dark text-white">Video Editing & Subtitles</option>
-                        <option value="brand-identity" class="bg-brand-dark text-white">Complete Brand Identity</option>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Service Selection</label>
+                    <select name="service" class="w-full glass-input rounded-xl px-4 py-3.5 text-white focus:outline-none text-sm">
+                        <option class="bg-slate-900 text-white">Flyer Design (₦7,000 / design)</option>
+                        <option class="bg-slate-900 text-white">Motion Graphics & Video Editing</option>
+                        <option class="bg-slate-900 text-white">AI Video Generation</option>
+                        <option class="bg-slate-900 text-white">Photo Retouching & Color Grading</option>
                     </select>
                 </div>
+
                 <div>
-                    <label for="project-message" class="block text-xs font-semibold text-slate-300 mb-2">Project Brief</label>
-                    <textarea id="project-message" name="message" rows="4" required class="w-full glass-panel px-4 py-3 rounded-xl border border-white/10 text-white focus:outline-none focus:border-brand-accent transition text-sm"></textarea>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Project Brief & Details</label>
+                    <textarea name="message" rows="4" required placeholder="Describe your title, colors, text details, or deadline..." class="w-full glass-input rounded-xl px-4 py-3.5 text-white focus:outline-none text-sm"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-brand-accent hover:bg-brand-glow text-white py-3.5 rounded-xl font-semibold transition glow-effect">
-                    Submit Request
+
+                <button type="submit" class="w-full glow-button py-4 rounded-xl font-black uppercase tracking-widest text-black text-xs">
+                    Send Order Brief
                 </button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 px-6 border-t border-white/5 text-center text-xs text-slate-500">
-        <p>&copy; 2026 FEXY VISUALS. All Rights Reserved.</p>
+    <footer class="py-8 border-t border-white/5 text-center text-xs text-slate-500 relative z-10">
+        <p>© <span id="year"></span> <b>FEXY VISUALS</b>. All Rights Reserved.</p>
     </footer>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden backdrop-blur-md flex items-center justify-center p-4">
-        <button id="lightbox-close" aria-label="Close Lightbox" class="absolute top-6 right-6 text-white text-2xl hover:text-brand-glow"><i class="fa-solid fa-xmark"></i></button>
-        <button id="lightbox-prev" aria-label="Previous Image" class="absolute left-6 text-white text-2xl hover:text-brand-glow"><i class="fa-solid fa-chevron-left"></i></button>
-        <div class="max-w-4xl max-h-[85vh] text-center">
-            <img id="lightbox-img" src="" alt="Portfolio Large Preview" class="max-h-[75vh] mx-auto rounded-lg object-contain">
-            <h3 id="lightbox-caption" class="text-white text-lg font-bold mt-4"></h3>
-        </div>
-        <button id="lightbox-next" aria-label="Next Image" class="absolute right-6 text-white text-2xl hover:text-brand-glow"><i class="fa-solid fa-chevron-right"></i></button>
-    </div>
+    <!-- Glassmorphism Floating AI Assistant Widget -->
+    <button id="chat-toggle" class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl glow-button text-black flex items-center justify-center text-2xl shadow-2xl">
+        <i class="fa-solid fa-robot"></i>
+    </button>
 
-    <!-- AI Floating Chat Assistant Widget -->
-    <div class="fixed bottom-6 right-6 z-40">
-        <button id="chat-toggle" aria-label="Open AI Assistant Chat" class="w-14 h-14 bg-brand-accent text-white rounded-full flex items-center justify-center shadow-lg hover:bg-brand-glow transition glow-effect">
-            <i class="fa-solid fa-robot text-xl"></i>
-        </button>
-
-        <div id="chat-window" class="hidden absolute bottom-18 right-0 w-80 sm:w-96 glass-panel rounded-2xl border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[420px]">
-            <div class="bg-brand-accent/20 p-4 border-b border-white/10 flex justify-between items-center">
-                <span class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-robot text-brand-glow"></i> Fexy AI Assistant
-                </span>
-                <button id="chat-close" aria-label="Close Chat Window" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    <div id="chat-box" class="fixed bottom-24 right-6 z-50 w-80 sm:w-96 glass-panel rounded-3xl hidden flex-col overflow-hidden border border-white/10 shadow-2xl">
+        <div class="p-4 bg-white/5 border-b border-white/10 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span class="font-extrabold text-sm text-white">FEXY AI Assistant</span>
             </div>
+            <button id="chat-close" class="text-slate-400 hover:text-white text-xl">&times;</button>
+        </div>
+
+        <div id="chat-messages" class="p-4 h-72 overflow-y-auto space-y-3 text-xs leading-relaxed">
+            <div class="glass-card p-3 rounded-2xl max-w-[88%] text-slate-200">
+                👋 Welcome to FEXY VISUALS! I'm your AI Assistant. Ask me about flyer rates (₦7k), video editing delivery times, or project bookings!
+            </div>
+        </div>
+
+        <div class="p-3 bg-white/5 border-t border-white/10 flex gap-2 items-center">
+            <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 glass-input rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
             
-            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
-                <div class="bg-white/10 text-slate-200 p-3 rounded-xl max-w-[85%] self-start">
-                    Hello! I'm your digital creative assistant. How can I help you with your project today?
-                </div>
-            </div>
-
-            <div class="p-3 border-t border-white/10 flex items-center gap-2">
-                <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-1 glass-panel px-3 py-2 rounded-lg text-white text-xs focus:outline-none">
-                <button id="voice-btn" aria-label="Voice Input" class="text-slate-400 hover:text-brand-glow p-2"><i class="fa-solid fa-microphone"></i></button>
-                <button id="send-btn" aria-label="Send Message" class="bg-brand-accent hover:bg-brand-glow text-white px-3 py-2 rounded-lg text-xs transition"><i class="fa-solid fa-paper-plane"></i></button>
-            </div>
+            <!-- Voice Microphone Input Button -->
+            <button id="mic-btn" type="button" class="glass-card px-3 py-2 rounded-xl text-slate-300 hover:text-white text-xs flex items-center gap-1 border border-white/10 transition-colors" title="Speak to AI">
+                <i class="fa-solid fa-microphone"></i>
+                <span id="mic-label" class="hidden sm:inline text-[10px]">Speak</span>
+            </button>
+            
+            <button id="chat-send" class="glow-button px-4 py-2 rounded-xl text-black font-extrabold text-xs">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
         </div>
     </div>
 
-    <!-- Interactive JavaScript -->
+    <!-- Script for Lightbox, Filtering, Chatbot, Video Interactivity & Dynamic Elements -->
     <script>
-        // Interactive Video Cards (Play / Mute Audio Toggle)
-        document.querySelectorAll('.video-card').forEach(card => {
-            const video = card.querySelector('video');
-            const overlay = card.querySelector('.video-overlay');
-            
+    // Set dynamic current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Click-to-Unmute & Playback Controller for Video Cards
+    document.querySelectorAll('.video-card').forEach(card => {
+        const video = card.querySelector('video');
+        if (video) {
+            video.play().catch(() => {});
             card.addEventListener('click', () => {
-                if (video.paused) {
+                if (video.muted) {
+                    video.muted = false;
                     video.play();
-                    if(overlay) overlay.classList.add('opacity-0');
                 } else {
-                    video.muted = !video.muted;
-                    if(overlay) overlay.classList.toggle('opacity-0', !video.muted);
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
                 }
             });
+        }
+    });
+
+    // Portfolio Data Matrix for Lightbox
+    const portfolioData = [
+        // Church & Events (0 - 3)
+        { title: "Church & Event Design 1", category: "Church & Events", src: "{{ url_for('static', filename='images/flyer1.jpg') }}" },
+        { title: "Church & Event Design 2", category: "Church & Events", src: "{{ url_for('static', filename='images/flyer2.jpg') }}" },
+        { title: "Church & Event Design 3", category: "Church & Events", src: "{{ url_for('static', filename='images/flyer3.jpg') }}" },
+        { title: "Church & Event Design 4", category: "Church & Events", src: "{{ url_for('static', filename='images/flyer4.jpg') }}" },
+        
+        // Tech & Community (4 - 7)
+        { title: "Tech & Community Design 1", category: "Tech & Community", src: "{{ url_for('static', filename='images/flyer5.jpg') }}" },
+        { title: "Tech & Community Design 2", category: "Tech & Community", src: "{{ url_for('static', filename='images/flyer6.jpg') }}" },
+        { title: "Tech & Community Design 3", category: "Tech & Community", src: "{{ url_for('static', filename='images/flyer7.jpg') }}" },
+        { title: "Tech & Community Design 4", category: "Tech & Community", src: "{{ url_for('static', filename='images/flyer8.jpg') }}" },
+
+        // Celebrations (8 - 11)
+        { title: "Celebrations Design 1", category: "Celebrations", src: "{{ url_for('static', filename='images/flyer9.jpg') }}" },
+        { title: "Celebrations Design 2", category: "Celebrations", src: "{{ url_for('static', filename='images/flyer10.jpg') }}" },
+        { title: "Celebrations Design 3", category: "Celebrations", src: "{{ url_for('static', filename='images/flyer11.jpg') }}" },
+        { title: "Celebrations Design 4", category: "Celebrations", src: "{{ url_for('static', filename='images/flyer12.jpg') }}" },
+
+        // Social Banners (12 - 15)
+        { title: "Social Banner 1", category: "Social Banners", src: "{{ url_for('static', filename='images/flyer13.jpg') }}" },
+        { title: "Social Banner 2", category: "Social Banners", src: "{{ url_for('static', filename='images/flyer14.jpg') }}" },
+        { title: "Social Banner 3", category: "Social Banners", src: "{{ url_for('static', filename='images/flyer15.jpg') }}" },
+        { title: "Social Banner 4", category: "Social Banners", src: "{{ url_for('static', filename='images/flyer16.jpg') }}" }
+    ];
+
+    let currentLightboxIndex = 0;
+
+    // Filter Gallery Function
+    function filterGallery(evt, category) {
+        const items = document.querySelectorAll('.gallery-item');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        buttons.forEach(btn => btn.classList.remove('active'));
+        if (evt && evt.currentTarget) {
+            evt.currentTarget.classList.add('active');
+        }
+
+        items.forEach(item => {
+            if (category === 'all' || item.classList.contains(category)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
         });
-
-        // Reliable Click-to-Unmute & Toggle Playback
-document.querySelectorAll('.video-card').forEach(card => {
-  const video = card.querySelector('video');
-  
-  // Ensure video attempts background autoplay on load
-  video.play().catch(() => {});
-
-  card.addEventListener('click', () => {
-    if (video.muted) {
-      video.muted = false;
-      video.play();
-    } else {
-      if (video.paused) {
-        video.play();
-      } else {
-        video.pause();
-      }
     }
-  });
-});
 
-        // Portfolio Filter Functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
+    // Lightbox Controls
+    function openLightbox(index) {
+        currentLightboxIndex = index;
+        const item = portfolioData[currentLightboxIndex];
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-brand-accent', 'text-white');
-                    b.classList.add('text-slate-300');
-                });
-                btn.classList.add('bg-brand-accent', 'text-white');
-                btn.classList.remove('text-slate-300');
+        let modal = document.getElementById('lightbox-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'lightbox-modal';
+            modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4';
+            modal.onclick = () => modal.remove();
+            document.body.appendChild(modal);
+        }
 
-                const filter = btn.getAttribute('data-filter');
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+        modal.innerHTML = `
+            <div class="glass-panel p-5 rounded-3xl max-w-md w-full relative border border-white/10 shadow-2xl" onclick="event.stopPropagation()">
+                <button onclick="document.getElementById('lightbox-modal').remove()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl transition-colors">&times;</button>
+                
+                <div class="rounded-2xl overflow-hidden mb-4 border border-white/10 relative group">
+                    <img id="lightbox-img" src="${item.src}" class="w-full h-auto object-cover max-h-[65vh]" alt="${item.title}">
+                    
+                    <button onclick="navigateLightbox(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="navigateLightbox(1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between mb-2">
+                    <span id="lightbox-category" class="text-brand-cyan text-[10px] font-extrabold uppercase tracking-widest">${item.category}</span>
+                    <span id="lightbox-counter" class="text-slate-400 text-[10px]">${currentLightboxIndex + 1} / 16</span>
+                </div>
+                
+                <h3 id="lightbox-title" class="text-white font-bold text-lg leading-snug">${item.title}</h3>
+                
+                <a href="https://wa.me/2347085415834?text=Hi%20FEXY%20VISUALS!%20I'd%20like%20a%20flyer%20similar%20to%20${encodeURIComponent(item.title)}" target="_blank" 
+                   class="glow-button w-full mt-4 py-3 rounded-xl text-black font-extrabold text-xs uppercase flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Order Similar Design
+                </a>
+            </div>
+        `;
+    }
+
+    function navigateLightbox(direction) {
+        currentLightboxIndex += direction;
+        if (currentLightboxIndex < 0) currentLightboxIndex = portfolioData.length - 1;
+        if (currentLightboxIndex >= portfolioData.length) currentLightboxIndex = 0;
+
+        const item = portfolioData[currentLightboxIndex];
+        document.getElementById('lightbox-img').src = item.src;
+        document.getElementById('lightbox-category').textContent = item.category;
+        document.getElementById('lightbox-title').textContent = item.title;
+        document.getElementById('lightbox-counter').textContent = `${currentLightboxIndex + 1} / 16`;
+    }
+
+    // Chatbot UI Elements
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatBox = document.getElementById('chat-box');
+    const chatClose = document.getElementById('chat-close');
+    const chatSend = document.getElementById('chat-send');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    chatToggle.onclick = () => chatBox.classList.toggle('hidden');
+    chatClose.onclick = () => chatBox.classList.add('hidden');
+
+    // Speech Synthesis (Text-to-Speech)
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+            utterance.lang = 'en-US';
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    // Unified Send Message Function
+    async function sendMessage() {
+        if (!chatInput || !chatInput.value.trim()) return;
+
+        const userInputValue = chatInput.value.trim();
+        chatInput.value = '';
+
+        // Append user message
+        chatMessages.innerHTML += `<div class="glass-card p-3 rounded-2xl max-w-[80%] ml-auto bg-cyan-600/20 text-right">${userInputValue}</div>`;
+
+        // Loading state indicator
+        const loadingId = 'loading-' + Date.now();
+        chatMessages.innerHTML += `<div id="${loadingId}" class="glass-card p-3 rounded-2xl max-w-[80%] text-slate-400">Thinking...</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userInputValue })
             });
-        });
 
-        // Lightbox Modal Functionality
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxCaption = document.getElementById('lightbox-caption');
-        let currentIdx = 0;
+            const data = await response.json();
+            document.getElementById(loadingId)?.remove();
 
-        const galleryData = Array.from(portfolioItems).map(item => ({
-            src: item.querySelector('img').src,
-            title: item.querySelector('h4').textContent
-        }));
-
-        portfolioItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                currentIdx = index;
-                openLightbox(currentIdx);
-            });
-        });
-
-        function openLightbox(idx) {
-            lightboxImg.src = galleryData[idx].src;
-            lightboxCaption.textContent = galleryData[idx].title;
-            lightbox.classList.remove('hidden');
+            if (response.ok && data.response) {
+                chatMessages.innerHTML += `<div class="glass-card p-3 rounded-2xl max-w-[80%]">${data.response}</div>`;
+                speakText(data.response);
+            } else {
+                chatMessages.innerHTML += `<div class="glass-card p-3 rounded-2xl max-w-[80%] text-red-400">Error: ${data.response || 'Server error'}</div>`;
+            }
+        } catch (err) {
+            console.error("Fetch error:", err);
+            document.getElementById(loadingId)?.remove();
+            chatMessages.innerHTML += `<div class="glass-card p-3 rounded-2xl max-w-[80%] text-red-400">Connection error. Please try again.</div>`;
         }
 
-        document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.add('hidden'));
-        document.getElementById('lightbox-prev').addEventListener('click', () => {
-            currentIdx = (currentIdx - 1 + galleryData.length) % galleryData.length;
-            openLightbox(currentIdx);
-        });
-        document.getElementById('lightbox-next').addEventListener('click', () => {
-            currentIdx = (currentIdx + 1) % galleryData.length;
-            openLightbox(currentIdx);
-        });
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-        // AI Chat Widget Logic & Web Speech Integration
-        const chatToggle = document.getElementById('chat-toggle');
-        const chatWindow = document.getElementById('chat-window');
-        const chatClose = document.getElementById('chat-close');
-        const sendBtn = document.getElementById('send-btn');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-        const voiceBtn = document.getElementById('voice-btn');
+    chatSend.onclick = sendMessage;
+    chatInput.onkeypress = (e) => { if (e.key === 'Enter') sendMessage(); };
 
-        chatToggle.addEventListener('click', () => chatWindow.classList.toggle('hidden'));
-        chatClose.addEventListener('click', () => chatWindow.classList.add('hidden'));
+    // Speech Recognition (Speech-to-Text)
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const micBtn = document.getElementById('mic-btn');
+    const micLabel = document.getElementById('mic-label');
 
-        function appendMessage(text, isUser = false) {
-            const msgNode = document.createElement('div');
-            msgNode.className = isUser 
-                ? 'bg-brand-accent text-white p-3 rounded-xl max-w-[85%] self-end ml-auto' 
-                : 'bg-white/10 text-slate-200 p-3 rounded-xl max-w-[85%] self-start';
-            msgNode.textContent = text;
-            chatMessages.appendChild(msgNode);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+    if (SpeechRecognition && micBtn) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
 
-        function handleSend() {
-            const query = chatInput.value.trim();
-            if(!query) return;
-            appendMessage(query, true);
-            chatInput.value = '';
-
-            setTimeout(() => {
-                appendMessage("Thank you for reaching out! You can book a direct consultation or chat via WhatsApp for immediate project quotes.");
-            }, 800);
-        }
-
-        sendBtn.addEventListener('click', handleSend);
-        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSend(); });
-
-        // Speech Recognition Setup
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new SpeechRecognition();
-
-            voiceBtn.addEventListener('click', () => {
+        micBtn.addEventListener('click', () => {
+            if (micLabel.innerText === 'Listening...') {
+                recognition.stop();
+            } else {
                 recognition.start();
-                voiceBtn.classList.add('text-brand-glow');
-            });
+            }
+        });
 
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                chatInput.value = transcript;
-                voiceBtn.classList.remove('text-brand-glow');
-            };
+        recognition.onstart = () => {
+            micLabel.innerText = 'Listening...';
+            micBtn.classList.add('bg-red-500', 'text-white');
+        };
 
-            recognition.onerror = () => voiceBtn.classList.remove('text-brand-glow');
-        }
-    </script>
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            chatInput.value = transcript;
+        };
+
+        recognition.onend = () => {
+            micLabel.innerText = 'Speak';
+            micBtn.classList.remove('bg-red-500', 'text-white');
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            micLabel.innerText = 'Speak';
+            micBtn.classList.remove('bg-red-500', 'text-white');
+        };
+    } else if (micBtn) {
+        micBtn.style.display = 'none';
+    }
+</script>
 </body>
 </html>
