@@ -301,7 +301,7 @@
     </section>
 
     <!-- Video Motion Showcase (UPDATED WITH FLASK URL_FOR PATHS & AUTOPLAY) -->
-    <!-- Video Motion Showcase Section -->
+<!-- Video Motion Showcase Section -->
 <section class="py-12 px-6 max-w-6xl mx-auto">
   <h2 class="text-3xl font-bold text-white mb-8 text-center">Video Motion Showcase</h2>
 
@@ -310,7 +310,7 @@
 
     <!-- Video 1 -->
     <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer" onclick="openVideoModal(0)">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105 pointer-events-none"
              autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb1.jpg') }}">
         <source src="{{ url_for('static', filename='videos/video1.mp4') }}" type="video/mp4">
       </video>
@@ -324,7 +324,7 @@
 
     <!-- Video 2 -->
     <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer" onclick="openVideoModal(1)">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105 pointer-events-none"
              autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb2.jpg') }}">
         <source src="{{ url_for('static', filename='videos/video2.mp4') }}" type="video/mp4">
       </video>
@@ -338,7 +338,7 @@
 
     <!-- Video 3 -->
     <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer" onclick="openVideoModal(2)">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105 pointer-events-none"
              autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb3.jpg') }}">
         <source src="{{ url_for('static', filename='videos/video3.mp4') }}" type="video/mp4">
       </video>
@@ -352,7 +352,7 @@
 
     <!-- Video 4 -->
     <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer" onclick="openVideoModal(3)">
-      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+      <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105 pointer-events-none"
              autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb4.jpg') }}">
         <source src="{{ url_for('static', filename='videos/video4.mp4') }}" type="video/mp4">
       </video>
@@ -366,68 +366,6 @@
 
   </div>
 </section>
-
-      <!-- Clean 2x2 Video Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-        <!-- Video 1 -->
-        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb1.jpg') }}">
-            <source src="{{ url_for('static', filename='videos/video1.mp4') }}" type="video/mp4">
-          </video>
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-              Click to Unmute / Pause
-            </span>
-            <p class="text-gray-300 text-xs">Commercial Edit</p>
-          </div>
-        </div>
-
-        <!-- Video 2 -->
-        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb2.jpg') }}">
-            <source src="{{ url_for('static', filename='videos/video2.mp4') }}" type="video/mp4">
-          </video>
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-              Click to Unmute / Pause
-            </span>
-            <p class="text-gray-300 text-xs">Event Highlight</p>
-          </div>
-        </div>
-
-        <!-- Video 3 -->
-        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb3.jpg') }}">
-            <source src="{{ url_for('static', filename='videos/video3.mp4') }}" type="video/mp4">
-          </video>
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-              Click to Unmute / Pause
-            </span>
-            <p class="text-gray-300 text-xs">Brand Motion Graphic</p>
-          </div>
-        </div>
-
-        <!-- Video 4 -->
-        <div class="video-card group relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-xl cursor-pointer">
-          <video class="portfolio-video w-full h-72 object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-                 autoplay muted loop playsinline preload="auto" poster="{{ url_for('static', filename='images/thumb4.jpg') }}">
-            <source src="{{ url_for('static', filename='videos/video4.mp4') }}" type="video/mp4">
-          </video>
-          <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
-            <span class="text-white font-semibold text-sm bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/30 mb-2">
-              Click to Unmute / Pause
-            </span>
-            <p class="text-gray-300 text-xs">Cinematic Color Grade</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
 
    <!-- Project Showcase Gallery Section -->
     <section id="projects" class="py-24 relative z-10 border-t border-white/5">
@@ -963,9 +901,9 @@ const videoData = [
     { title: "Cinematic Color Grade", src: "{{ url_for('static', filename='videos/video4.mp4') }}" }
 ];
 
-// Open Expanded Video Modal with Full Layout Controls
 function openVideoModal(index) {
     const item = videoData[index];
+    if (!item) return;
 
     let modal = document.getElementById('video-modal');
     if (!modal) {
@@ -982,8 +920,8 @@ function openVideoModal(index) {
 
     modal.innerHTML = `
         <div class="glass-panel p-4 rounded-3xl max-w-4xl w-full relative border border-white/10 shadow-2xl" onclick="event.stopPropagation()">
-            <button onclick="document.getElementById('video-modal').querySelector('video')?.pause(); document.getElementById('video-modal').remove();" 
-                    class="absolute -top-3 -right-3 z-10 w-10 h-10 rounded-full bg-red-500 text-white font-bold text-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform">&times;</button>
+            <button type="button" onclick="const m = document.getElementById('video-modal'); if (m) { m.querySelector('video')?.pause(); m.remove(); }" 
+                    class="absolute -top-3 -right-3 z-10 w-10 h-10 rounded-full bg-red-500 text-white font-bold text-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-pointer">&times;</button>
             
             <div class="rounded-2xl overflow-hidden bg-black max-h-[75vh] flex items-center justify-center">
                 <video controls autoplay class="w-full h-auto max-h-[75vh] rounded-2xl shadow-2xl">
